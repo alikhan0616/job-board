@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -29,7 +30,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Header />
+        <main className="">
         {children}
+        </main>
+        <footer className="container py-8 px-6 mx-auto">
+          HireHub &copy; 2025 - All rights reserved
+        </footer>
       </body>
     </html>
   );
