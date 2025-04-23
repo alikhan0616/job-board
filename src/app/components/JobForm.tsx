@@ -1,9 +1,11 @@
 "use client"
-import { TextArea, Theme, RadioGroup, TextField } from "@radix-ui/themes"
+import { TextArea, Theme, RadioGroup, TextField, Button } from "@radix-ui/themes"
 import { useState, type ChangeEvent } from "react"
 import { CountrySelect, StateSelect, CitySelect } from "react-country-state-city"
 import "react-country-state-city/dist/react-country-state-city.css"
 import type { Country, State, City } from "react-country-state-city/dist/esm/types"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faEnvelope, faImage, faPhone, faUser } from "@fortawesome/free-solid-svg-icons"
 
 export default function JobForm() {
   const [country, setCountry] = useState<Country | null>(null)
@@ -42,6 +44,7 @@ export default function JobForm() {
       <div className="container py-6 px-6 mx-auto">
         <form action="" className="container flex flex-col gap-3">
           <TextField.Root placeholder="Job Title" />
+         
           <div className="grid grid-cols-3 gap-6">
             <div className="">
               Location:
@@ -109,7 +112,55 @@ export default function JobForm() {
               </div>
             )}
           </div>
+          <div className="flex flex-row">
+            <div className="w-1/3">
+            <h2>Job Icon</h2>
+              <div className="bg-gray-200 size-24 flex justify-center content-center items-center">
+              <FontAwesomeIcon className="text-gray-400" icon={faImage}/>
+              </div>
+              <div className="mt-2">
+              <Button variant="soft">Select File</Button>
+              </div>
+            </div>
+            <div className="grow">
+  <h2>Contact Person</h2>
+  <div className="flex gap-2">
+    <div className="">
+      <div className="bg-gray-200 size-24 flex justify-center content-center items-center">
+        <FontAwesomeIcon className="text-gray-400" icon={faUser} />
+      </div>
+      <div className="mt-2">
+        <Button variant="soft">Select File</Button>
+      </div>
+    </div>
+    <div className="flex flex-col gap-1 w-full">
+      <TextField.Root placeholder="John Doe" type="text" className="w-full">
+        <TextField.Slot>
+          <FontAwesomeIcon icon={faUser} />
+        </TextField.Slot>
+      </TextField.Root>
+      <TextField.Root placeholder="Phone" type="tel" className="w-full">
+        <TextField.Slot>
+          <FontAwesomeIcon icon={faPhone} />
+        </TextField.Slot>
+      </TextField.Root>
+      <TextField.Root placeholder="abc@gmail.com" type="text" className="w-full">
+        <TextField.Slot>
+          <FontAwesomeIcon icon={faEnvelope} />
+        </TextField.Slot>
+      </TextField.Root>
+    </div>
+  </div>
+</div>
+          </div>
           <TextArea placeholder="Enter description..." resize="vertical" />
+          <div className="flex justify-center">
+            <Button size="3">
+              <span className="px-8">
+              Save
+              </span>
+              </Button>
+          </div>
         </form>
       </div>
     </Theme>
