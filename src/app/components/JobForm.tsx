@@ -6,6 +6,7 @@ import "react-country-state-city/dist/react-country-state-city.css"
 import type { Country, State, City } from "react-country-state-city/dist/esm/types"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEnvelope, faImage, faPhone, faUser } from "@fortawesome/free-solid-svg-icons"
+import IconUpload from "./IconUpload"
 
 export default function JobForm() {
   const [country, setCountry] = useState<Country | null>(null)
@@ -115,23 +116,13 @@ export default function JobForm() {
           <div className="flex flex-row">
             <div className="w-1/3">
             <h2>Job Icon</h2>
-              <div className="bg-gray-200 size-24 flex justify-center content-center items-center">
-              <FontAwesomeIcon className="text-gray-400" icon={faImage}/>
-              </div>
-              <div className="mt-2">
-              <Button variant="soft">Select File</Button>
-              </div>
+             <IconUpload icon={faImage} />
             </div>
             <div className="grow">
   <h2>Contact Person</h2>
   <div className="flex gap-2">
     <div className="">
-      <div className="bg-gray-200 size-24 flex justify-center content-center items-center">
-        <FontAwesomeIcon className="text-gray-400" icon={faUser} />
-      </div>
-      <div className="mt-2">
-        <Button variant="soft">Select File</Button>
-      </div>
+    <IconUpload icon={faUser} />
     </div>
     <div className="flex flex-col gap-1 w-full">
       <TextField.Root placeholder="John Doe" type="text" className="w-full">
