@@ -18,6 +18,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: "Upload failed: No result returned" }, { status: 500 });
     }
 
+<<<<<<< HEAD
+=======
+    console.log("Image Result: ", uploadResult);
+>>>>>>> e3f0de84ed5539a59d10e3327bad789e3a5bcae1
 
     return NextResponse.json({ message: "Upload successful", data: uploadResult }, { status: 200 });
   } catch (error: any) {

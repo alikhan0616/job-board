@@ -1,12 +1,20 @@
 "use client";
 
+<<<<<<< HEAD
 import { faSpinner, IconDefinition } from "@fortawesome/free-solid-svg-icons";
+=======
+import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
+>>>>>>> e3f0de84ed5539a59d10e3327bad789e3a5bcae1
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@radix-ui/themes";
 import { useRef, useState } from "react";
 import axios from "axios";
 
+<<<<<<< HEAD
 export default function IconUpload({ name, icon }: { name: string; icon: IconDefinition }) {
+=======
+export default function IconUpload({ icon }: { icon: IconDefinition }) {
+>>>>>>> e3f0de84ed5539a59d10e3327bad789e3a5bcae1
   const fileInRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -32,11 +40,17 @@ export default function IconUpload({ name, icon }: { name: string; icon: IconDef
     try {
       const res = await axios.post("/api/upload", formData);
       setError(null);  
+<<<<<<< HEAD
       setLoading(false)
       setImageUrl(res.data.data.url);
     } catch (err: any) {
       setError(err.response?.data?.message || err.message || "Something went wrong");
       setImageUrl(null)
+=======
+      setImageUrl(res.data.data.url);
+    } catch (err: any) {
+      setError(err.response?.data?.message || err.message || "Something went wrong");
+>>>>>>> e3f0de84ed5539a59d10e3327bad789e3a5bcae1
     } finally {
       setLoading(false);
     }
@@ -45,6 +59,7 @@ export default function IconUpload({ name, icon }: { name: string; icon: IconDef
   return (
     <div>
       <div className="bg-gray-200 size-24 flex justify-center content-center items-center">
+<<<<<<< HEAD
     {loading ? (
           <FontAwesomeIcon className="text-gray-400 animate-spin" icon={faSpinner} />
         ) : imageUrl ? (
@@ -55,6 +70,11 @@ export default function IconUpload({ name, icon }: { name: string; icon: IconDef
       </div>
       <div className="mt-2">
         <input type="hidden" name={name} value={imageUrl || ""} />
+=======
+        {imageUrl ? <img className="size-24 object-contain" src={imageUrl} alt="uploaded picture" /> : <FontAwesomeIcon className="text-gray-400" icon={icon} />}
+      </div>
+      <div className="mt-2">
+>>>>>>> e3f0de84ed5539a59d10e3327bad789e3a5bcae1
         <input
           onChange={handleFileUpload}
           hidden
