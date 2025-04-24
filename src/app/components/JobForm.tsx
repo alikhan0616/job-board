@@ -7,11 +7,8 @@ import type { Country, State, City } from "react-country-state-city/dist/esm/typ
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEnvelope, faImage, faPhone, faUser } from "@fortawesome/free-solid-svg-icons"
 import IconUpload from "./IconUpload"
-<<<<<<< HEAD
 import { useRouter } from "next/navigation"
 import { saveJob } from "../actions/jobActions"
-=======
->>>>>>> e3f0de84ed5539a59d10e3327bad789e3a5bcae1
 
 
 export default function JobForm({orgId}: {orgId:string}) {
@@ -149,21 +146,13 @@ export default function JobForm({orgId}: {orgId:string}) {
           <div className="flex flex-row">
             <div className="w-1/3">
             <h2>Job Icon</h2>
-<<<<<<< HEAD
              <IconUpload name="jobIcon" icon={faImage} />
-=======
-             <IconUpload icon={faImage} />
->>>>>>> e3f0de84ed5539a59d10e3327bad789e3a5bcae1
             </div>
             <div className="grow">
   <h2>Contact Person</h2>
   <div className="flex gap-2">
     <div className="">
-<<<<<<< HEAD
     <IconUpload name="contactPhoto" icon={faUser} />
-=======
-    <IconUpload icon={faUser} />
->>>>>>> e3f0de84ed5539a59d10e3327bad789e3a5bcae1
     </div>
     <div className="flex flex-col gap-1 w-full">
       <TextField.Root name="contactName" placeholder="John Doe" type="text" className="w-full">
