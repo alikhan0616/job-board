@@ -6,11 +6,18 @@ import "react-country-state-city/dist/react-country-state-city.css"
 import type { Country, State, City } from "react-country-state-city/dist/esm/types"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEnvelope, faImage, faPhone, faUser } from "@fortawesome/free-solid-svg-icons"
+import IconUpload from "./IconUpload"
+import { useRouter } from "next/navigation"
+import { saveJob } from "../actions/jobActions"
 
-export default function JobForm() {
+
+export default function JobForm({orgId}: {orgId:string}) {
   const [country, setCountry] = useState<Country | null>(null)
   const [currentState, setCurrentState] = useState<State | null>(null)
   const [currentCity, setCurrentCity] = useState<City | null>(null)
+  const [error, setError] = useState<String | null>(null)
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const router = useRouter();
 
   // Create handler functions that can handle both types
   const handleCountryChange = (value: Country | ChangeEvent<HTMLInputElement>) => {
@@ -20,6 +27,7 @@ export default function JobForm() {
       // Reset state and city when country changes
       setCurrentState(null)
       setCurrentCity(null)
+      setError(null)
     }
   }
 
@@ -38,17 +46,40 @@ export default function JobForm() {
       setCurrentCity(value as City)
     }
   }
+  
+  const handleSaveJob = async (data:FormData) => {
+    setSubmitLoading(true)
+    setError(null)
+    if (!country) {
+      setError("Please select a country before submitting the form.");
+      setSubmitLoading(false);
+      return;
+    }
+    try {
+      data.set("orgId", orgId)
+    data.set("country", country.name)
+    if(currentState) data.set("state", currentState.name)
+    if(currentCity) data.set("city", currentCity.name)
+    const jobDoc = await saveJob(data);
+  setSubmitLoading(false)
+  router.push(`/jobs/${jobDoc.orgId}`)
+    } catch (error) {
+      setError("Error Occured")
+      console.log(error)
+      setSubmitLoading(false)
+    }
+  }
 
   return (
     <Theme>
       <div className="container py-6 px-6 mx-auto">
-        <form action="" className="container flex flex-col gap-3">
-          <TextField.Root placeholder="Job Title" />
+        <form action={handleSaveJob} className="container flex flex-col gap-3">
+          <TextField.Root name="title" placeholder="Job Title" />
          
           <div className="grid grid-cols-3 gap-6">
             <div className="">
               Location:
-              <RadioGroup.Root defaultValue="hybrid" name="location">
+              <RadioGroup.Root defaultValue="hybrid" name="remote">
                 <RadioGroup.Item value="onsite">On-site</RadioGroup.Item>
                 <RadioGroup.Item value="hybrid">Hybrid-remote</RadioGroup.Item>
                 <RadioGroup.Item value="remote">Fully remote</RadioGroup.Item>
@@ -56,7 +87,7 @@ export default function JobForm() {
             </div>
             <div className="">
               Type:
-              <RadioGroup.Root defaultValue="full" name="jobType">
+              <RadioGroup.Root defaultValue="full" name="type">
                 <RadioGroup.Item value="contract">Contract</RadioGroup.Item>
                 <RadioGroup.Item value="part">Part-time</RadioGroup.Item>
                 <RadioGroup.Item value="full">Full-time</RadioGroup.Item>
@@ -64,7 +95,7 @@ export default function JobForm() {
             </div>
             <div className="">
                 Salary (per year)
-                <TextField.Root>
+                <TextField.Root name="salary">
                     <TextField.Slot>
                         PKR
                     </TextField.Slot>
@@ -115,36 +146,26 @@ export default function JobForm() {
           <div className="flex flex-row">
             <div className="w-1/3">
             <h2>Job Icon</h2>
-              <div className="bg-gray-200 size-24 flex justify-center content-center items-center">
-              <FontAwesomeIcon className="text-gray-400" icon={faImage}/>
-              </div>
-              <div className="mt-2">
-              <Button variant="soft">Select File</Button>
-              </div>
+             <IconUpload name="jobIcon" icon={faImage} />
             </div>
             <div className="grow">
   <h2>Contact Person</h2>
   <div className="flex gap-2">
     <div className="">
-      <div className="bg-gray-200 size-24 flex justify-center content-center items-center">
-        <FontAwesomeIcon className="text-gray-400" icon={faUser} />
-      </div>
-      <div className="mt-2">
-        <Button variant="soft">Select File</Button>
-      </div>
+    <IconUpload name="contactPhoto" icon={faUser} />
     </div>
     <div className="flex flex-col gap-1 w-full">
-      <TextField.Root placeholder="John Doe" type="text" className="w-full">
+      <TextField.Root name="contactName" placeholder="John Doe" type="text" className="w-full">
         <TextField.Slot>
           <FontAwesomeIcon icon={faUser} />
         </TextField.Slot>
       </TextField.Root>
-      <TextField.Root placeholder="Phone" type="tel" className="w-full">
+      <TextField.Root name="contactPhone" placeholder="Phone" type="tel" className="w-full">
         <TextField.Slot>
           <FontAwesomeIcon icon={faPhone} />
         </TextField.Slot>
       </TextField.Root>
-      <TextField.Root placeholder="abc@gmail.com" type="text" className="w-full">
+      <TextField.Root name="contactEmail" placeholder="abc@gmail.com" type="text" className="w-full">
         <TextField.Slot>
           <FontAwesomeIcon icon={faEnvelope} />
         </TextField.Slot>
@@ -153,11 +174,17 @@ export default function JobForm() {
   </div>
 </div>
           </div>
-          <TextArea placeholder="Enter description..." resize="vertical" />
+          <TextArea name="description" placeholder="Enter description..." resize="vertical" />
+          {error && (
+            <div className="mt-2 text-red-500">
+              <h3>Error:</h3>
+              <p>{error}</p>
+            </div>
+          )}
           <div className="flex justify-center">
-            <Button size="3">
+            <Button size="3" disabled={!country || submitLoading}>
               <span className="px-8">
-              Save
+                {submitLoading ? "Saving Job..." : "Save"}
               </span>
               </Button>
           </div>

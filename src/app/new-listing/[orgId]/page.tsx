@@ -29,6 +29,6 @@ export default async function newListingOrgPage(props:pageProps){
     }
 
     return(
-     <JobForm />
+     <JobForm orgId={orgId} />
     )
 } 
