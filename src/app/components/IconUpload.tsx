@@ -6,11 +6,11 @@
  import { useRef, useState } from "react";
  import axios from "axios";
  
- export default function IconUpload({ name, icon }: { name: string; icon: IconDefinition }) {
+ export default function IconUpload({ name, icon, defaultValue = ' ' }: { name: string; icon: IconDefinition; defaultValue: string }) {
    const fileInRef = useRef<HTMLInputElement>(null);
    const [file, setFile] = useState<File | null>(null);
    const [error, setError] = useState<string | null>(null);
-   const [imageUrl, setImageUrl] = useState<string | null>(null)
+   const [imageUrl, setImageUrl] = useState<string | null>(defaultValue)
    const [loading, setLoading] = useState(false);
  
  

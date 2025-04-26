@@ -24,7 +24,9 @@
     "next-cloudinary": "^6.16.0",
     "react": "^19.0.0",
     "react-country-state-city": "^1.1.12",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-timeago": "^8.2.0",
+    "uid": "^2.0.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
