@@ -10,7 +10,7 @@ type PageProps = {
     }
 }
 export default async function JobEditPage(props:PageProps){
-    const {jobId} = await props.params
+    const {jobId} = props.params
     await mongoose.connect(process.env.MONGO_URI as string);
     const jobDoc = JSON.parse(JSON.stringify(await JobModel.findById(jobId)));
     const {user} = await withAuth();

@@ -8,7 +8,7 @@ type PageProps = {
 }
 
 export default async function SingleJobPage(props:PageProps){
-    const {jobId} = await props.params;
+    const {jobId} = props.params;
     await mongoose.connect(process.env.MONGO_URI as string)
     const jobDoc = await JobModel.findById(jobId)
     const country = typeof jobDoc.country === 'string' ? JSON.parse(jobDoc.country) : jobDoc.country

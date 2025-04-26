@@ -17,7 +17,7 @@ export default async function newListingOrgPage(props:pageProps){
             <div className="container py-6 px-6 mx-auto">You need to log in first!</div>
         )
     }
-    const {orgId} = await props.params;
+    const {orgId} = props.params;
     const oms = await workos.userManagement.listOrganizationMemberships({userId:user.id, organizationId:orgId})
     const hasAccess = oms.data.length > 0;
 

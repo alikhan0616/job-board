@@ -13,7 +13,7 @@ type PageProps = {
 export default async function CompanyJobPage(props:PageProps){
     const workos = new WorkOS(process.env.WORKOS_API_KEY)
     const {user} = await withAuth();
-    const { orgId } = await props.params;
+    const { orgId } = props.params;
     const org = await workos.organizations.getOrganization(orgId)
     await mongoose.connect(process.env.MONGO_URI as string)
     let jobDocs = JSON.parse(JSON.stringify(await JobModel.find({orgId: org.id})))
