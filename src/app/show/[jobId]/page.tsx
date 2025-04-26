@@ -31,7 +31,7 @@ export default async function SingleJobPage(props:PageProps){
                 {jobDoc.description}
             </div>
             <div className="gap-2 mt-4 bg-gray-200 p-8 rounded-lg">
-                <h1 className="font-bold mb-2">Apply my contacting us</h1>
+                <h1 className="font-bold mb-2">Apply by contacting us</h1>
                 <div className="flex gap-2">
                 <img src={jobDoc.contactPhoto} alt="contact photo" height={500} width={500} className="w-auto h-auto max-w-24 max-h-24" />
                 <div className="">
