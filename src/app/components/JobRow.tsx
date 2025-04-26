@@ -24,9 +24,11 @@ export default async function JobRow({jobDoc}:{jobDoc: Job}) {
             <div className="grow sm:flex">
                 <div className="grow">
                     <div className="">
-                <Link href={`/jobs/${jobDoc.orgId}`} className="hover:cursor-pointer text-sm text-gray-500">{jobDoc.orgName || '?'}</Link>
+                <Link href={`/jobs/${jobDoc.orgId}`} className="hover:cursor-pointer hover:underline text-sm text-gray-500">{jobDoc.orgName || '?'}</Link>
                     </div>
-                <div className="font-bold text-md sm:text-lg mb-1">{jobDoc.title}</div>
+                    <div>
+                <Link href={`/show/${jobDoc._id}`} className="hover:cursor-pointer hover:underline font-bold text-md sm:text-lg mb-1">{jobDoc.title}</Link>
+                    </div>
                 <div className=" text-gray-400 text-xs sm:text-sm capitalize">
                 {jobDoc.remote} · {country?.name || 'Unknown Country'}
                 {city ? (`, ${city?.name || 'Unknown City'}`) : (state ? `, ${state?.name || 'Unknown State'}` : '')} · {jobDoc.type}-Time
